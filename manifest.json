@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Append Reddit",
+  "version": "1.0",
+  "description": "Turn on to automatically append \"reddit\" to the end of Google searches. (Not affiliated with Reddit)",
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_icon": "icon48.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "webNavigation",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.google.com/search*"
+  ]
+}
