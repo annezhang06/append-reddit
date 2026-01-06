@@ -1,4 +1,19 @@
-// 1. Handle navigation events
+async function updateBadge() {
+    // Check whether the extension is enabled
+    const { enabled } = await chrome.storage.local.get({ enabled: true });
+    
+    // Update badge to reflect on/off
+    chrome.action.setBadgeText({
+        text: enabled ? "ON" : "OFF"
+    });
+
+    // I guess we are using diff colours for on/off badge status
+    chrome.action.setBadgeBackgroundColor({
+        color: enabled ? "#0f9d58" : "#9e9e9e"
+    });
+}
+
+// Handle navigation events
 chrome.webNavigation.onCommitted.addListener(async (details) => {
     // Check that we're not working w/ an iframe
     if (details.frameId !== 0) return;
@@ -37,17 +52,21 @@ chrome.webNavigation.onCommitted.addListener(async (details) => {
     });
 });
 
-async function updateBadge() {
-    // Check whether the extension is enabled
-    const { enabled } = await chrome.storage.local.get({ enabled: true });
-    
-    // Update badge to reflect on/off
-    chrome.action.setBadgeText({
-        text: enabled ? "ON" : "OFF"
-    });
+// Initialize badge whenever the extension loads
+// i.e., "Add a listener for the chrome.runtime.onInstalled event object"
+chrome.runtime.onInstalled.addListener(() => {
+    updateBadge();
+});
+// onInstalled fires when:
+// extension is installed, you click “Reload” in dev mode, extension updates
 
-    // I guess we are using diff colours for on/off badge status
-    chrome.action.setBadgeBackgroundColor({
-        color: enabled ? "#0f9d58" : "#9e9e9e"
-    });
-}
+chrome.runtime.onStartup.addListener(() => {
+    updateBadge();
+});
+// onStartup fires when:
+// Chrome launches
+
+// Change badge (to reflect state changes) whenever the user toggles
+chrome.storage.onChanged.addListener(() => {
+    updateBadge();
+});
