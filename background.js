@@ -3,6 +3,7 @@ chrome.webNavigation.onCommitted.addListener(async (details) => {
     // Check that we're not working w/ an iframe
     if (details.frameId !== 0) return;
 
+    // Check if the extension is turned on
     const { enabled } = await chrome.storage.local.get({ enabled: true });
     /*
     Equivalently:
@@ -36,15 +37,17 @@ chrome.webNavigation.onCommitted.addListener(async (details) => {
     });
 });
 
-// 2. Handle toolbar icon clicks (the toggle)
-chrome.action.onClicked.addListener(async () => {
-    // Get the enabled bool
+async function updateBadge() {
+    // Check whether the extension is enabled
     const { enabled } = await chrome.storage.local.get({ enabled: true });
-    const newEnabled = !enabled;
-
-    await chrome.storage.local.set({ enabled: newEnabled});
-
+    
+    // Update badge to reflect on/off
     chrome.action.setBadgeText({
-        text: newEnabled ? "ON" : "OFF"
+        text: enabled ? "ON" : "OFF"
     });
-});
+
+    // I guess we are using diff colours for on/off badge status
+    chrome.action.setBadgeBackgroundColor({
+        color: enabled ? "#0f9d58" : "#9e9e9e"
+    });
+}
