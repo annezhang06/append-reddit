@@ -21,3 +21,5 @@ The extension is on by default when loaded. To toggle it off/on, click its name 
 * ~~An actual toggle in the extension popup for a sleeker toggling experience.~~ ✅
 * No sliding animation when the extension is enabled and you open the popup.
 * Icon colour change to indicate on/off status, rather than a badge.
+
+**Shoutout to IconsDB(https://www.iconsdb.com/) for the amazing selection of free icon pngs!**
