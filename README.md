@@ -18,5 +18,6 @@ The extension is on by default when loaded. To toggle it off/on, click its name 
 
 ### Coming Soon:
 
-* An actual toggle in the extension popup for a sleeker toggling experience.
+* ~~An actual toggle in the extension popup for a sleeker toggling experience.~~ ✅
+* No sliding animation when the extension is enabled and you open the popup.
 * Icon colour change to indicate on/off status, rather than a badge.
