@@ -1,6 +1,6 @@
 # Append Reddit
 
-Created December 2025. My first Chrome extension!
+My first Chrome extension!
 
 ## About
 
